@@ -20,6 +20,10 @@ export default function Chat(props : Props)
     const login = useAppSelector(selectLoginStatus);
     const username = useAppSelector(selectUsername);
 
+    const sendMessage = () => {
+        dispatch(props.onSend({name: username, message: message}));
+    }
+
     return <div>
         <h2>{props.chatName}</h2>
         <div className={styles.chatView}>
@@ -37,8 +41,12 @@ export default function Chat(props : Props)
         </div>
         { login ?
         <div>
-            <input onChange={(event) => { setMessage(event.target.value) }}></input>
-            <button onClick={() => {dispatch(props.onSend({name: username, message: message}))}}>send</button>
+            <input onChange={(event) => { setMessage(event.target.value) }}
+                onKeyPress={(e) => e.key === "Enter" ? sendMessage() : null}>
+            </input>
+            <button onClick={sendMessage}>
+                send
+            </button>
         </div> :
         <div>Login to send messages</div>}
     </div>;
