@@ -13,6 +13,7 @@ export default function LoginPage()
         dispatch(login(loginName));
     }
     return (<div>
+        <h2>Login</h2>
         {loginStatus ? <div>You already logged as {username}</div> : null}
         <input placeholder="username" onChange={(event) => setLoginName(event.target.value)}></input>
         <button onClick={() => loginToChat()}>Login</button>
