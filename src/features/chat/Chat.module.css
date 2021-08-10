@@ -10,6 +10,19 @@
     padding: 5px;
 }
 
+.message
+{
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+}
+
+.message button
+{
+    width: 100px;
+    align-self: right;
+}
+
 .userMessage
 {
     text-align: right;
@@ -18,7 +31,7 @@
     border: 1px solid white;
 }
 
-.message
+.anotherUserMessage
 {
     padding: 10px;
     text-align: left;
@@ -32,4 +45,26 @@
     height: 400px;
     overflow: auto;
     border: 2px solid black;
+}
+
+@media screen and (max-width: 500px) {
+    .chatView
+    {
+        width: 400px;
+    }
+}
+
+.messageInput
+{
+    width: 100%;
+}
+
+.messageInput button
+{
+    font-size: 16px;
+}
+
+.messageInput input
+{
+    font-size: 16px;
 }

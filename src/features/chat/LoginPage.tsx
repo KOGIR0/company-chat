@@ -15,7 +15,10 @@ export default function LoginPage()
     return (<div>
         <h2>Login</h2>
         {loginStatus ? <div>You already logged as {username}</div> : null}
-        <input placeholder="username" onChange={(event) => setLoginName(event.target.value)}></input>
+        <input placeholder="username"
+            onChange={(event) => setLoginName(event.target.value)}
+            onKeyPress={(e) => e.key === "Enter" ? loginToChat() : null}>
+        </input>
         <button onClick={() => loginToChat()}>Login</button>
     </div>);
 }

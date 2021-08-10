@@ -1,10 +1,11 @@
 import React from 'react'
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 import { selectLoginStatus,
     selectUsername}
     from './chatSlice';
 import styles from './Chat.module.css';
+import cx from 'classnames'
 
 type Props = {
     onSend: Function,
@@ -26,12 +27,14 @@ function Message(props: messageProps)
 {
     let divClass = styles.message;
     const isCurrentUser = props.message.name === props.username;
-    if(isCurrentUser)
-    {
-        divClass = styles.userMessage;
-    }
     const [isChanging, setIsChanging] = useState(false);
     let [message, setMessage] = useState(props.message.message);
+    if(isCurrentUser)
+    {
+        divClass = cx(styles.userMessage, styles.message);
+    } else {
+        divClass = cx(styles.anotherUserMessage, styles.messages);
+    }
 
     let submitChange = () => {
         setIsChanging(false);
@@ -42,13 +45,17 @@ function Message(props: messageProps)
     {
         return (<div className={divClass} key={props.index}>
             {props.message.name} : <input value={message} onChange={(e) => setMessage(e.target.value)}></input>
-            {isCurrentUser ? <button onClick={submitChange}>submit</button> : null}
+            <div>
+                {isCurrentUser ? <button onClick={submitChange}>submit</button> : null}
+            </div>
         </div>);
     } else {
         return (<div className={divClass} key={props.index}>
             {props.message.name} : {props.message.message}
-            {isCurrentUser ? <button onClick={() => {props.onDelete(props.index)}} >delete</button> : null}
-            {isCurrentUser ? <button onClick={() => {setIsChanging(true)}}>change</button> : null}
+            <div>
+                {isCurrentUser ? <button onClick={() => {props.onDelete(props.index)}} >delete</button> : null}
+                {isCurrentUser ? <button onClick={() => {setIsChanging(true)}}>change</button> : null}
+            </div>
         </div>);
     }
 }
@@ -65,7 +72,7 @@ function MessageInput(props : {onSend: Function})
 
     if(login)
     {
-        return (<div>
+        return (<div className={styles.messageInput}>
                 <input onChange={(event) => { setMessage(event.target.value) }}
                     onKeyPress={(e) => e.key === "Enter" ? sendMessage() : null}>
                 </input>
@@ -81,6 +88,7 @@ function MessageInput(props : {onSend: Function})
 export default function Chat(props : Props)
 {
     const username = useAppSelector(selectUsername);
+    console.log(props);
 
     return (<div>
         <h2>{props.chatName}</h2>
