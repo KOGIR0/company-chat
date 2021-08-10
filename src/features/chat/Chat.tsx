@@ -54,7 +54,7 @@ function Message(props: messageProps)
             {props.message.name} : {props.message.message}
             <div>
                 {isCurrentUser ? <button onClick={() => {props.onDelete(props.index)}} >delete</button> : null}
-                {isCurrentUser ? <button onClick={() => {setIsChanging(true)}}>change</button> : null}
+                {isCurrentUser ? <button onClick={() => {setIsChanging(true); setMessage(props.message.message)}}>change</button> : null}
             </div>
         </div>);
     }
@@ -88,7 +88,6 @@ function MessageInput(props : {onSend: Function})
 export default function Chat(props : Props)
 {
     const username = useAppSelector(selectUsername);
-    console.log(props);
 
     return (<div>
         <h2>{props.chatName}</h2>

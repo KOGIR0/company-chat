@@ -55,7 +55,7 @@ export function CompanyChat()
                         messages={workMessages}
                         onSend={onWorkMessageSend}
                         onDelete={(i : number) => dispatch(deleteWorkMessage(i))}
-                        onChange={onWorkMessageChange} 
+                        onChange={onWorkMessageChange}
                         />} />
                     <Route path="/talk"
                         element={<Chat chatName="Talk Chat"
