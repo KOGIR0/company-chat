@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
+import { defaultTalkMessages, defaultWorkMessages } from './DefaultMessages'
 
 interface IUserMessage
 {
@@ -17,8 +18,8 @@ interface IState {
 let initialState : IState = {
     userName: localStorage.getItem('username'),
     login: localStorage.getItem('login') === 'true' ? true : false,
-    workMessages: JSON.parse(localStorage.getItem("workMessages") as string) ? JSON.parse(localStorage.getItem("workMessages") as string) : [],
-    talkMessages: JSON.parse(localStorage.getItem("talkMessages") as string) ? JSON.parse(localStorage.getItem("talkMessages") as string) : []
+    workMessages: JSON.parse(localStorage.getItem("workMessages") as string) ? JSON.parse(localStorage.getItem("workMessages") as string) : defaultWorkMessages,
+    talkMessages: JSON.parse(localStorage.getItem("talkMessages") as string) ? JSON.parse(localStorage.getItem("talkMessages") as string) : defaultTalkMessages
 }
 
 export const chatSlice = createSlice({
