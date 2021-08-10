@@ -6,7 +6,9 @@ import {
     addTalkMessage, 
     addWorkMessage,
     selectTalkMessages,
-    selectWorkMessages} 
+    selectWorkMessages,
+    deleteTalkMessage,
+    deleteWorkMessage} 
     from "./chatSlice";
 import { useAppSelector } from '../../app/hooks';
 import LoginPage from "./LoginPage";
@@ -32,11 +34,13 @@ export function CompanyChat()
                     <Route path="/work"
                         element={<Chat chatName="Work Chat"
                         messages={workMessages}
-                        onSend={addWorkMessage} />} />
+                        onSend={addWorkMessage}
+                        onDelete={deleteWorkMessage} />} />
                     <Route path="/talk"
                         element={<Chat chatName="Talk Chat"
                         messages={talkMessages}
-                        onSend={addTalkMessage}/>} />
+                        onSend={addTalkMessage}
+                        onDelete={deleteTalkMessage} />} />
                 </Routes>
             </div>
         </Router>

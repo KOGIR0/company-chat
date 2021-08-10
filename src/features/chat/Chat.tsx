@@ -8,6 +8,7 @@ import styles from './Chat.module.css';
 
 type Props = {
     onSend: Function,
+    onDelete: Function,
     messages: {name: string, message: string}[],
     chatName: string
 }
@@ -28,7 +29,10 @@ export default function Chat(props : Props)
                 {
                     divClass = styles.userMessage;
                 }
-                return (<div className={divClass} key={index}>{m.name} : {m.message}</div>);
+                return (<div className={divClass} key={index}>
+                    {m.name} : {m.message}
+                    <button onClick={() => {dispatch(props.onDelete(index))}} >delete</button>
+                    </div>);
                 })}
         </div>
         { login ?
