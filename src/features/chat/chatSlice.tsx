@@ -39,22 +39,34 @@ export const chatSlice = createSlice({
         },
         deleteTalkMessage: (state, action) => {
             const index = action.payload;
-            if (index > -1) {
-                state.talkMessages.splice(index, 1);
-            }
+            state.talkMessages.splice(index, 1);
             localStorage.setItem('talkMessages', JSON.stringify(state.talkMessages));
         },
         deleteWorkMessage: (state, action) => {
             const index = action.payload;
-            if (index > -1) {
-                state.workMessages.splice(index, 1);
-            }
+            state.workMessages.splice(index, 1);
             localStorage.setItem('talkMessages', JSON.stringify(state.talkMessages));
+        },
+        changeTalkMessage: (state, action) => {
+            const index = action.payload.index;
+            const message = action.payload.message;
+            state.talkMessages[index].message = message;
+        },
+        changeWorkMessage: (state, action) => {
+            const index = action.payload.index;
+            const message = action.payload.message;
+            state.workMessages[index].message = message;
         }
     },
 });
 
-export const { addWorkMessage, addTalkMessage, login, deleteTalkMessage, deleteWorkMessage } = chatSlice.actions;
+export const { addWorkMessage,
+    addTalkMessage, 
+    login, 
+    deleteTalkMessage, 
+    deleteWorkMessage,
+    changeTalkMessage,
+    changeWorkMessage} = chatSlice.actions;
 export const selectWorkMessages = (state: RootState) => state.messages.workMessages;
 export const selectTalkMessages = (state: RootState) => state.messages.talkMessages;
 export const selectLoginStatus = (state: RootState) => state.messages.login;

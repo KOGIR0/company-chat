@@ -8,18 +8,37 @@ import {
     selectTalkMessages,
     selectWorkMessages,
     deleteTalkMessage,
-    deleteWorkMessage} 
+    deleteWorkMessage,
+    changeTalkMessage,
+    changeWorkMessage
+    } 
     from "./chatSlice";
-import { useAppSelector } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import LoginPage from "./LoginPage";
 
 export function CompanyChat()
 {
+    const dispatch = useAppDispatch();
     const talkMessages = useAppSelector(selectTalkMessages);
     const workMessages = useAppSelector(selectWorkMessages);
     
     localStorage.setItem('talkMessages', JSON.stringify(talkMessages));
     localStorage.setItem('workMessages', JSON.stringify(workMessages));
+
+    const onWorkMessageSend = (message: {name: string, message: string}) => {
+        dispatch(addWorkMessage({name: message.name, message: message.message}))
+    };
+    const onTalkMessageSend = (message: {name: string, message: string}) => {
+        dispatch(addTalkMessage({name: message.name, message: message.message}))
+    };
+
+    const onWorkMessageChange = (message: {index : number, message: string}) => {
+        dispatch(changeWorkMessage({index: message.index, message: message.message}))
+    };
+    const onTalkMessageChange = (message: {index : number, message: string}) => {
+        dispatch(changeTalkMessage({index: message.index, message: message.message}))
+    }
+
     return (
         <Router>
             <div className={styles.header}>
@@ -34,13 +53,17 @@ export function CompanyChat()
                     <Route path="/work"
                         element={<Chat chatName="Work Chat"
                         messages={workMessages}
-                        onSend={addWorkMessage}
-                        onDelete={deleteWorkMessage} />} />
+                        onSend={onWorkMessageSend}
+                        onDelete={(i : number) => dispatch(deleteWorkMessage(i))}
+                        onChange={onWorkMessageChange} 
+                        />} />
                     <Route path="/talk"
                         element={<Chat chatName="Talk Chat"
                         messages={talkMessages}
-                        onSend={addTalkMessage}
-                        onDelete={deleteTalkMessage} />} />
+                        onSend={onTalkMessageSend}
+                        onDelete={(i : number) => dispatch(deleteTalkMessage(i))}
+                        onChange={onTalkMessageChange}
+                        />} />
                 </Routes>
             </div>
         </Router>
