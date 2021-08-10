@@ -88,7 +88,6 @@ function MessageInput(props : {onSend: Function})
 export default function Chat(props : Props)
 {
     const username = useAppSelector(selectUsername);
-    console.log(props);
 
     return (<div>
         <h2>{props.chatName}</h2>
